@@ -3,7 +3,7 @@ const CreateClass = require('create-react-class');
 const _     = require('lodash');
 const cx    = require('classnames');
 
-const Events = require('./events/events.jsx');
+const Events = require('./../components/events/Events.jsx');
 
 const Main = CreateClass({
 	getDefaultProps: function() {
