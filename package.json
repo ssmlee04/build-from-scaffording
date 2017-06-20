@@ -1,0 +1,33 @@
+{
+  "name": "web-takehome-skeleton",
+  "version": "1.0.0",
+  "description": "Front-end Take-home Challenge",
+  "main": "server.js",
+  "scripts": {
+    "addevents" : "node scripts/addTestEvents.js",
+    "dev": "node scripts/dev.js",
+    "build": "node scripts/build.js",
+    "prod": "set NODE_ENV=production&& npm run build",
+    "postinstall": "npm run build",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thalmic/web-takehome-skeleton.git"
+  },
+  "author": "Thalmic Labs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thalmic/web-takehome-skeleton/issues"
+  },
+  "homepage": "https://github.com/thalmic/web-takehome-skeleton#readme",
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "create-react-class": "^15.5.3",
+    "express": "^4.15.3",
+    "lodash": "^4.17.4",
+    "react": "^15.5.4",
+    "superagent": "^3.5.2",
+    "vitreum": "^4.2.0"
+  }
+}

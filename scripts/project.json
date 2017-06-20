@@ -1,0 +1,19 @@
+{
+  "assets": [
+    "*.svg",
+    "*.png",
+    "*.jpg",
+    "*.otf",
+    "*.woff",
+    "*.ico",
+    "*.ttf"
+  ],
+  "libs": [
+    "react",
+    "react-dom",
+    "create-react-class",
+    "lodash",
+    "classnames",
+    "superagent"
+  ]
+}
