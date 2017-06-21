@@ -7,17 +7,11 @@ const LoadingMask = CreateClass({
     const { show } = this.props;
 
     return (<Modal
-        isOpen={show}
-        // onAfterOpen={afterOpenFn}
-        // onRequestClose={requestCloseFn}
-        // closeTimeoutMS={n}
-        // style={customStyle}
-        contentLabel="Modal"
-      >
-        <h1>Loading stuff</h1>
-        <p>...</p>
-      </Modal>);
-    
+      isOpen={show}
+      contentLabel={'label'}
+    >
+      {this.props.children}
+    </Modal>);
   },
 });
 

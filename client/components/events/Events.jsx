@@ -1,19 +1,17 @@
 const React = require('react');
 const CreateClass = require('create-react-class');
-const _     = require('lodash');
-const cx    = require('classnames');
-
-const request = require('superagent');
 const EventList = require('./../../components/events/EventList.jsx');
 const EventInfo = require('./../../components/events/EventInfo.jsx');
 const Header = require('./../../components/header/Header.jsx');
-const LoadingMask = require('./../../components/loadingmask/Loadingmask.jsx');
-const eventsService = require('./../../services/events/events')
-
-const layout = <div>nothing is here</div>
-const noEvents = <div>nothing is here</div>
+const LoadingMask = require('./../../components/loadingmask/LoadingMask.jsx');
+const eventsService = require('./../../services/events/events');
 
 const Events = CreateClass({
+  getInitialState: function() {
+    return {
+      isCreatingEvent: false,
+    };
+  },
   getDefaultProps: function() {
     return {
       pageTitle: 'Events',
@@ -21,88 +19,84 @@ const Events = CreateClass({
       eventToShow: {},
     };
   },
-  componentDidMount: function() {
-    
+  openCreateEventPanel: function(show) {
+    console.log(show);
+    this.setState({ isCreatingEvent: show });
   },
   onClickEvent: function(event) {
     var { eventModel } = this.props;
-    eventModel.setEventToShow(event)
+    eventModel.setEventToShow(event);
+  },
+  deleteEvent: function(id) {
+    eventsService.delete(id);
   },
   createEvent: function() {
-    eventsService.create()
+    var type = this.refs['type'].value;
+    var serviceId = this.refs['serviceId'].value;
+    var icon = this.refs['icon'].value;
+    var timestamp = this.refs['timestamp'].value;
+    var title = this.refs['title'].value;
+    var data = this.refs['data'].value;
+    eventsService.create({ type, serviceId, icon, timestamp, title, data });
+    this.openCreateEventPanel(false);
+  },
+  setTitleFilter: function(e) {
+    var { eventModel } = this.props;
+    var titleFilter = this.refs['titleFilter'].value;
+    eventModel.setTitleFilter(titleFilter);
   },
   render: function() {
-    var { pageTitle, eventModel  } = this.props;
-    var events = eventModel.all()
-    var eventToShow = eventModel.getEventToShow()
-    var isCreatingEvent = eventModel.getIsCreatingEvent()
+    var { pageTitle, eventModel } = this.props;
+    var { isCreatingEvent } = this.state;
+    var events = eventModel.allFiltered();
+    var eventToShow = eventModel.getEventToShow();
 
-    const layout = <div>
-      <EventList
-        events={events}
-        onClickEvent={this.onClickEvent}
-        eventToShow={eventToShow}
-      />
-      <EventInfo
-        eventToShow={eventToShow}
-      />
-      
+    const layout = (
+      <div className="mainclass">
+        <EventList
+          className="aside"
+          style={{ backgroundColor: 'red' }}
+          events={events}
+          onClickEvent={this.onClickEvent}
+          eventToShow={eventToShow}
+        />
+        <EventInfo
+          className="article"
+          style={{ backgroundColor: 'green' }}
+          onClick={this.deleteEvent}
+          eventToShow={eventToShow}
+        />
+      </div>
+    );
 
-    </div>
-
-    return (<div id='devices'>
-          <LoadingMask show={false} />
-          <LoadingMask show={isCreatingEvent} />
-          <Header
-            pageTitle={pageTitle}
-            // isSearchingDevice={isSearchingDevice}
-            // searchedDeviceList={searchedDeviceList}
-            // isShowUngroupBtn={isShowUngroupBtn}
-            // isUngroupBtnDisabled={Boolean(isUngroupingDevices)}
-            // isShowDeleteGroupBtn={isShowDeleteGroupBtn}
-            // isDeleteGroupBtnDisabled={Boolean(isDeletingDeviceGroup)}
-            // isShowCreateGroupBtn={noSelectedDevice && isShowCreateGroupBtn}
-            // isShowMoveGroupBtn={isShowMoveGroupBtn}
-            // isCreateGroupBtnDisabled={Boolean(isCreatingDeviceGroup)}
-            // groups={groupsWithoutSelected}
-            // onClickSearchedDevice={this.onClickSearchedDevice}
-            // onChangeSearchBoxKeyword={this.onChangeSearchBoxKeyword}
-            // onRequestCreateGroup={this.onRequestCreateGroup}
-            // onRequestDeleteGroup={this.onRequestDeleteGroup}
-            // onRequestUngroup={this.onRequestUngroup}
-            // onRequestRegister={this.onRequestRegister}
-            // onRequestMoveGroup={this.onRequestMoveGroup}
-          />
-          {events.length ? layout : noEvents}
-          <div>
-            <button onClick={this.createEvent}>create an event</button>
-          </div>
+    return (
+      <div>
+        <LoadingMask show={isCreatingEvent}>
+          <input type="text" ref="type" />
+          <input type="text" ref="serviceId" />
+          <input type="text" ref="icon" />
+          <input type="text" ref="timestamp" />
+          <input type="text" ref="title" />
+          <input type="text" ref="data" />
+          <button onClick={this.createEvent}> create event </button>
+          <button onClick={this.openCreateEventPanel.bind(this, false)}>
+            {' '}close{' '}
+          </button>
+        </LoadingMask>
+        <Header pageTitle={pageTitle}>
+          Filter title: <input type='text' ref='titleFilter' onKeyUp={this.setTitleFilter} />
+        </Header>
+        <div className="wrapper">
+          {events.length > 0 ? layout : layout}
         </div>
-      );
-  }
+        <div>
+          <button onClick={this.openCreateEventPanel.bind(this, true)}>
+            create an event
+          </button>
+        </div>
+      </div>
+    );
+  },
 });
-          // { isShowLoading ? null : (!isNoDevice ? layout : noDevice) }
-          // <GroupForm
-          //   title={groupFormTitle}
-          //   actionBtnLabel={groupFormActionBtnLabel}
-          //   isOpen={isShowGroupForm}
-          //   screenGroups={screenGroups}
-          //   items={groupFormItems}
-          //   groupId={groupFormGroupId}
-          //   defaultName={groupFormGroupName}
-          //   defaultScreenGroupId={groupFormScreenGroupId}
-          //   isCheckingGroupNameAvailability={isCheckingDeviceGroupNameAvailability}
-          //   resultOfCheckingGroupNameAvailability={resultOfCheckingDeviceGroupNameAvailability}
-          //   onClickActionBtn={this.onClickActionBtnOfGroupForm}
-          //   onClickCancelBtn={this.onClickCancelBtnOfGroupForm}
-          //   onGroupNameChanged={this.onGroupFormGroupNameChanged}
-          //   onOpened={this.onGroupFormOpened}
-          // />
-          // <RegisterDeviceDialog
-          //   isOpen={isShowRegisterDeviceDialog}
-          //   entities={entities}
-          //   onSubmit={this.onSubmitRegisterDeviceForm}
-          //   onCancel={this.onCancelRegisterDeviceForm}
-          // />
 
 module.exports = Events;

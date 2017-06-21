@@ -1,23 +1,22 @@
 const React = require('react');
 const CreateClass = require('create-react-class');
-const _     = require('lodash');
-const cx    = require('classnames');
-
 const EventContainer = require('./../containers/events/EventContainer.jsx');
 
 const Main = CreateClass({
   getDefaultProps: function() {
     return {
-      url : ''
+      url: '',
     };
   },
-  render: function(){
-    return <div className='main'>
-      <div className='fancybar' />
-      <h1>Event thingie 9000</h1>
-      <EventContainer />
-    </div>
-  }
+  render: function() {
+    return (
+      <div className="main">
+        <div className="fancybar" />
+        <h1>Event thingie 9000</h1>
+        <EventContainer />
+      </div>
+    );
+  },
 });
 
 module.exports = Main;
