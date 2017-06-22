@@ -1,5 +1,6 @@
 @import "./colors.less";
 @import "./base.less";
+
 .main{
 	.fancybar{
 		position         : absolute;
@@ -9,10 +10,22 @@
 		width            : 100%;
 		background-color : @thalmicBlue;
 	}
+
+  margin: 10;
+}
+
+.inline {
+  display: inline;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
 }
 
 .wrapper {
-  height: 90vh;
+  height: 60%;
   width: 100%;
   display: flex;
 }
@@ -32,5 +45,6 @@
 }
  
 .article {
+overflow-x: scroll;
   flex: 4;
 }

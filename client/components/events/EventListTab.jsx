@@ -12,12 +12,15 @@ const EventListTab = CreateClass({
         })}
         onClick={() => this.props.onClick(event)}
       >
-        <img src={event.icon} style={{ width: 50, height: 50 }} />
+        <img
+          src={event.icon || 'assets/images/icon-person-128.png'}
+          style={{ width: 50, height: 50 }}
+        />
         <span>{event.title}</span>
         <span>{event.icon}</span>
       </div>
     );
-  },
+  }
 });
 
 module.exports = EventListTab;

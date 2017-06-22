@@ -5,6 +5,7 @@ app.use(express.static(__dirname + '/build'));
 const templateFn = require('./client/template.js');
 const render = require('vitreum/steps/render');
 
+app.use('/assets', express.static('client/assets'));
 app.get('*', (req, res) => {
   render('main', templateFn, {
     url: req.url,
@@ -17,5 +18,3 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`server on port:${PORT}`);
 });
-
-

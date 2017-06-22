@@ -9,8 +9,12 @@ const EventInfo = CreateClass({
       <div style={this.props.style} className={this.props.className}>
         {(eventToShow.id &&
           <div>
-            title: {eventToShow.title}
-            <button onClick={() => this.props.onClick(eventToShow.id)}>
+            Title: {eventToShow.title}
+            <hr />
+            <button onClick={() => this.props.openUpdateEventPanel(eventToShow.id)}>
+              Update this event
+            </button>
+            <button onClick={() => this.props.deleteEvent(eventToShow.id)}>
               Delete this event
             </button>
           </div>) ||

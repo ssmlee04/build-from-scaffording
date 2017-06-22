@@ -9,6 +9,7 @@
     "*.ttf"
   ],
   "libs": [
+    "antd",
     "react",
     "react-dom",
     "create-react-class",

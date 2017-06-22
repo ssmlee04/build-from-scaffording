@@ -11,11 +11,20 @@ module.exports = (() => {
         });
     },
     create: info => {
+      console.log(info)
       return request
         .post('https://forgetful-elephant.herokuapp.com/events')
         .send(info)
         .then(res => {
           eventModel.add(JSON.parse(JSON.stringify(res.body)));
+        });
+    },
+    update: (id, info) => {
+      return request
+        .put(`https://forgetful-elephant.herokuapp.com/events/${id}`)
+        .send(info)
+        .then(res => {
+          eventModel.save(id, JSON.parse(JSON.stringify(res.body)));
         });
     },
     delete: id => {

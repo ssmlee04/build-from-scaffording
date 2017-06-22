@@ -18,7 +18,7 @@ module.exports = exports = new function(key) {
 
   this.allFiltered = function() {
     return this.all().filter(d => {
-      return d.title.indexOf(this.titleToSearch) > -1;
+      return d.title && d.title.indexOf(this.titleToSearch) > -1;
     });
   };
 
@@ -75,9 +75,9 @@ module.exports = exports = new function(key) {
     this.inform();
   };
 
-  this.save = function(eventToSave, info) {
+  this.save = function(id, info) {
     this.events = this.events.map(function(event) {
-      return event !== eventToSave ? event : _.extend({}, event, info);
+      return event.id !== id ? event : _.extend({}, event, info);
     });
 
     this.inform();
