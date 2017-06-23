@@ -69,14 +69,14 @@ const Events = CreateClass({
       <div className="mainclass">
         <EventList
           className="aside"
-          style={{ backgroundColor: 'red' }}
+          style={{ backgroundColor: '#DDDDDD', margin: 5 }}
           events={events}
           onClickEvent={this.onClickEvent}
           eventToShow={eventToShow}
         />
         <EventInfo
           className="article"
-          style={{ backgroundColor: 'green' }}
+          style={{ backgroundColor: '#DDDDDD', margin: 5 }}
           deleteEvent={this.deleteEvent}
           openUpdateEventPanel={this.openUpdateEventPanel}
           eventToShow={eventToShow}
@@ -101,7 +101,8 @@ const Events = CreateClass({
         <Header pageTitle={pageTitle + ': ' + (eventToShow.title || '')}>
           <div style={{ flex: 1, display: 'inline', float: 'right' }}>
             <span>Filter title: </span>
-            <Input
+            <input 
+              className='ant-input ant-input-lg'
               type="text"
               ref="titleFilter"
               onKeyUp={this.setTitleFilter}

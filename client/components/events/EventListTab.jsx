@@ -14,10 +14,9 @@ const EventListTab = CreateClass({
       >
         <img
           src={event.icon || 'assets/images/icon-person-128.png'}
-          style={{ width: 50, height: 50 }}
+          style={{ width: 50, height: 50, marginRight: 10 }}
         />
-        <span>{event.title}</span>
-        <span>{event.icon}</span>
+        <h2 className='inline'>{event.title}</h2>
       </div>
     );
   }
