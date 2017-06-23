@@ -6,7 +6,7 @@ const Header = CreateClass({
     var { pageTitle } = this.props;
     return (
       <div>
-        <span>{pageTitle}</span>
+      	<span>{pageTitle}</span>
         {this.props.children}
       </div>
     );
